@@ -1,0 +1,16 @@
+base_url = "/"
+title = "Web Developer Portfolio"
+description = "Professional portfolio showcasing web development projects and skills"
+default_language = "en"
+
+# Enable syntax highlighting for code snippets
+[markdown]
+highlight_code = true
+highlight_theme = "monokai"
+
+[extra]
+# Custom variables
+author = "delfigore"
+github = "https://github.com/Delfigore"
+linkedin = "https://linkedin.com/in/yourusername"
+email = "your.email@example.com"
