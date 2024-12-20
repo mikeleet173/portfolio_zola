@@ -40,18 +40,21 @@ const mobileMenuCloseBtn = document.querySelector('.mobile-menu-close');
 const mobileMenu = document.querySelector('.mobile-menu');
 const mobileMenuLinks = document.querySelectorAll('.mobile-menu-content a');
 
-function toggleMobileMenu(show = true) {
-    mobileMenu.classList.toggle('active', show);
-    document.body.style.overflow = show ? 'hidden' : '';
+function toggleMobileMenu() {
+    const isActive = mobileMenu.classList.contains('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = !isActive ? 'hidden' : '';
 }
 
 // Toggle mobile menu
-mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
-mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(false));
+mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+mobileMenuCloseBtn?.addEventListener('click', toggleMobileMenu);
 
-// Close mobile menu when clicking a link
+// Close menu when clicking on links
 mobileMenuLinks.forEach(link => {
-    link.addEventListener('click', () => toggleMobileMenu(false));
+    link.addEventListener('click', () => {
+        toggleMobileMenu();
+    });
 });
 
 // Close mobile menu when clicking outside
@@ -59,14 +62,14 @@ document.addEventListener('click', (e) => {
     if (mobileMenu.classList.contains('active') && 
         !e.target.closest('.mobile-menu-content') && 
         !e.target.closest('.mobile-menu-btn')) {
-        toggleMobileMenu(false);
+        toggleMobileMenu();
     }
 });
 
 // Close mobile menu when pressing escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-        toggleMobileMenu(false);
+        toggleMobileMenu();
     }
 });
 
