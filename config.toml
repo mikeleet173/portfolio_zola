@@ -1,16 +1,38 @@
 base_url = "/"
-title = "Web Developer Portfolio"
-description = "Professional portfolio showcasing web development projects and skills"
+title = "Web Developer Portfolio | Delfigore"
+description = "Full-stack web developer specializing in modern web applications, responsive design, and user experience."
 default_language = "en"
+generate_feeds = true
+compile_sass = true
+minify_html = true
+build_search_index = true
 
 # Enable syntax highlighting for code snippets
 [markdown]
 highlight_code = true
-highlight_theme = "monokai"
+highlight_theme = "dracula"
+external_links_target_blank = true
+external_links_no_follow = true
+smart_punctuation = true
 
 [extra]
-# Custom variables
+# Author information
 author = "delfigore"
+role = "Full-Stack Web Developer"
+location = "Your Location"
+
+# Social links
 github = "https://github.com/Delfigore"
 linkedin = "https://linkedin.com/in/yourusername"
 email = "your.email@example.com"
+twitter = "https://twitter.com/yourusername"
+
+# SEO
+keywords = "web developer, full stack developer, javascript developer, react developer, node.js developer"
+og_image = "/images/og-image.jpg"
+twitter_card = "summary_large_image"
+
+# Site features
+enable_dark_mode = true
+enable_smooth_scroll = true
+google_analytics = "" # Add your GA tag if needed

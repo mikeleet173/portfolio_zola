@@ -1,110 +1,90 @@
 // Theme handling
 const themeToggle = document.querySelector('.theme-toggle');
-const html = document.documentElement;
+const htmlElement = document.documentElement;
 const themeIcon = themeToggle.querySelector('i');
 
-// Check for saved theme preference
-const savedTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', savedTheme);
-updateThemeIcon(savedTheme);
+// Get theme from localStorage or system preference
+const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
 
-// Theme toggle functionality
-themeToggle.addEventListener('click', () => {
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    updateThemeIcon(newTheme);
-});
-
-function updateThemeIcon(theme) {
-    themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-}
-
-// Check system preference on load
-if (!localStorage.getItem('theme')) {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = prefersDark ? 'dark' : 'light';
-    html.setAttribute('data-theme', theme);
+// Set theme
+const setTheme = (theme) => {
+    htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     updateThemeIcon(theme);
-}
+};
 
-// Navbar scroll behavior
-let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
+// Update theme icon
+const updateThemeIcon = (theme) => {
+    themeIcon.className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+};
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll <= 0) {
-        navbar.classList.remove('hidden');
-        return;
-    }
-    
-    if (currentScroll > lastScroll && !navbar.classList.contains('hidden')) {
-        // Scrolling down
-        navbar.classList.add('hidden');
-    } else if (currentScroll < lastScroll && navbar.classList.contains('hidden')) {
-        // Scrolling up
-        navbar.classList.remove('hidden');
-    }
-    
-    lastScroll = currentScroll;
+// Initialize theme
+setTheme(getPreferredTheme());
+
+// Theme toggle click handler
+themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
 });
 
-// Smooth scrolling for anchor links
+// Navbar scroll handling
+const navbar = document.querySelector('.navbar');
+let lastScrollY = window.scrollY;
+
+window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    // Show/hide navbar based on scroll direction
+    if (currentScrollY > lastScrollY) {
+        navbar.classList.add('hidden');
+    } else {
+        navbar.classList.remove('hidden');
+    }
+    
+    lastScrollY = currentScrollY;
+});
+
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 });
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
+// Initialize skill bars animation
+const observeSkillBars = () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillLevel = entry.target;
+                const width = skillLevel.getAttribute('data-level');
+                skillLevel.style.width = width + '%';
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.skill-level').forEach(skillLevel => {
+        observer.observe(skillLevel);
+    });
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, observerOptions);
-
-// Observe all skill items and project cards
-document.querySelectorAll('.skills li, .project-card').forEach((element) => {
-    observer.observe(element);
-});
-
-// Typing effect for the hero section
-function typeWriter(element, text, speed = 50) {
-    let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// Initialize typing effect when the page loads
-window.addEventListener('load', () => {
-    const heroTitle = document.querySelector('.hero h1');
-    if (heroTitle) {
-        const originalText = heroTitle.textContent;
-        typeWriter(heroTitle, originalText);
-    }
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    observeSkillBars();
 });
