@@ -439,9 +439,10 @@ body {
 
 /* Footer */
 footer {
-    padding: 4rem 0;
     background-color: var(--accent-color);
-    text-align: center;
+    padding: 3rem 0;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .social-links {
@@ -455,28 +456,22 @@ footer {
     color: var(--text-color);
     font-size: 1.5rem;
     transition: all 0.3s ease;
-    opacity: 0.8;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--card-bg);
-    box-shadow: var(--card-shadow);
 }
 
 .social-links a:hover {
     color: var(--primary-color);
-    opacity: 1;
     transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .copyright {
+    text-align: center;
     color: var(--text-color);
     opacity: 0.8;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+}
+
+[data-theme="dark"] footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Theme Toggle */
