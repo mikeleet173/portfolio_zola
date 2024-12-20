@@ -34,6 +34,42 @@ themeToggle.addEventListener('click', () => {
     setTheme(newTheme);
 });
 
+// Mobile Menu
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+const mobileMenuCloseBtn = document.querySelector('.mobile-menu-close');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileMenuLinks = document.querySelectorAll('.mobile-menu-content a');
+
+function toggleMobileMenu(show = true) {
+    mobileMenu.classList.toggle('active', show);
+    document.body.style.overflow = show ? 'hidden' : '';
+}
+
+// Toggle mobile menu
+mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
+mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(false));
+
+// Close mobile menu when clicking a link
+mobileMenuLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMobileMenu(false));
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileMenu.classList.contains('active') && 
+        !e.target.closest('.mobile-menu-content') && 
+        !e.target.closest('.mobile-menu-btn')) {
+        toggleMobileMenu(false);
+    }
+});
+
+// Close mobile menu when pressing escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        toggleMobileMenu(false);
+    }
+});
+
 // Navbar scroll handling
 const navbar = document.querySelector('.navbar');
 let lastScrollY = window.scrollY;

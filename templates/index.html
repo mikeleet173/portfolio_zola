@@ -36,6 +36,9 @@
     <nav class="navbar">
         <div class="container">
             <a href="/" class="logo" aria-label="Home">{{ config.extra.author }}</a>
+            <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="nav-links">
                 <a href="#about" aria-label="About section">About</a>
                 <a href="#skills" aria-label="Skills section">Skills</a>
@@ -47,6 +50,22 @@
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" aria-label="Close mobile menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <a href="#about" aria-label="About section">About</a>
+            <a href="#skills" aria-label="Skills section">Skills</a>
+            <a href="#projects" aria-label="Projects section">Projects</a>
+            <a href="#contact" aria-label="Contact section">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main>
