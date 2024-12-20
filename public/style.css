@@ -118,8 +118,34 @@ body {
 
 .navbar .container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle,
+.mobile-menu-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.5rem;
+}
+
+.theme-toggle:hover,
+.mobile-menu-btn:hover {
+    color: var(--primary-color);
 }
 
 .logo {
@@ -185,6 +211,16 @@ body {
 
 .nav-links a:hover::after {
     transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .nav-buttons {
+        margin-left: auto;
+    }
 }
 
 /* Mobile Menu */
@@ -518,26 +554,25 @@ body {
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .skill-category h3 {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
+    transition: color 0.3s ease;
 }
 
-.skill-category ul {
-    list-style: none;
-}
-
-.skill-category li {
-    margin-bottom: 1.5rem;
-}
-
-.skill-name {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
+.skill-category:hover h3 {
+    color: var(--secondary-color);
 }
 
 .skill-bar {
@@ -545,13 +580,22 @@ body {
     background: var(--skill-bar-bg);
     border-radius: 4px;
     overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.skill-category:hover .skill-bar {
+    transform: scaleX(1.02);
 }
 
 .skill-level {
     height: 100%;
     background: var(--skill-bar-fill);
     border-radius: 4px;
-    transition: width 1s ease;
+    transition: width 1s ease, background-color 0.3s ease;
+}
+
+.skill-category:hover .skill-level {
+    background: var(--secondary-color);
 }
 
 /* Projects Section */
