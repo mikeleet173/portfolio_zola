@@ -61,7 +61,7 @@ tools = [
 
 <section class="hero" data-aos="fade-up">
     <div class="hero-content">
-        <h1>Hello, I'm {{ config.extra.author }}</h1>
+        <h1>Hello, I'm delfigore</h1>
         <h2>{{ config.extra.role }}</h2>
         <p>I craft modern, responsive web applications with a focus on user experience and performance. Based in {{ config.extra.location }}, I specialize in building exceptional digital experiences.</p>
         <div class="hero-buttons">
